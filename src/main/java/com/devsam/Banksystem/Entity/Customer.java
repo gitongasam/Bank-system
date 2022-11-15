@@ -21,4 +21,7 @@ public class Customer {
     private  String SecondName;
     private String lastName;
     private String password;
+
+
+
 }
