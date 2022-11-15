@@ -44,7 +44,6 @@ public class CustomerController {
         }catch (BadCredentialsException e){
             throw new Exception("bad credentials");
         }
-
         return  new ResponseEntity<>(HttpStatus.OK);
     }
 
