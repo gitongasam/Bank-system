@@ -1,8 +1,8 @@
 package com.devsam.Banksystem.Config;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/register","/login").permitAll()
-                .antMatchers("/dashboard").authenticated()
+                .antMatchers(HttpMethod.GET,"/getAllCustomer").hasAnyRole("ADMIN","MANAGER")
                 .and()
                 .httpBasic();
 
