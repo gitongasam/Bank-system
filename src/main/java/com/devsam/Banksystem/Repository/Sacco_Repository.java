@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import java.util.Optional;
 @EnableJpaRepositories
 public interface Sacco_Repository extends JpaRepository<Sacco_User,Long> {
-    Optional<Sacco_User>findByLastName(String lastName);
+    Optional<Sacco_User>findByEmail(String email);
 
 }

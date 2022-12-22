@@ -14,8 +14,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private Sacco_Repository sacco_repository;
     @Override
-    public UserDetails loadUserByUsername(String lastName) throws UsernameNotFoundException {
-        Sacco_User customer = sacco_repository.findByLastName(lastName).orElseThrow(()->new UsernameNotFoundException("User not found"));
-        return  new org.springframework.security.core.userdetails.User(customer.getLastName(),customer.getPassword(),new ArrayList<>());
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Sacco_User user = sacco_repository.findByEmail(email).orElseThrow(()->new UsernameNotFoundException("User not found"));
+        return  new org.springframework.security.core.userdetails.User(user.getEmail(),user.getPassword(),new ArrayList<>());
     }
 }

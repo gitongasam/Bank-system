@@ -16,13 +16,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
+    @Autowired
+    private  CustomAuthenticationProvider customAuthenticationProvider;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/register","/login").permitAll()
-                .antMatchers(HttpMethod.GET,"/getAllCustomer").hasAnyRole("ADMIN","MANAGER")
+                .anyRequest().authenticated()
                 .and()
                 .httpBasic();
 
@@ -30,14 +32,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
+        auth.authenticationProvider(customAuthenticationProvider);
     }
 
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
     @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {

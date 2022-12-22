@@ -28,30 +28,26 @@ public class Sacco_User_Controller {
     @Autowired
     private AuthenticationManager authenticationManager;
     @PostMapping("/register")
-    public Sacco_User saveCustomer(@RequestBody Sacco_user_Model customerModel){
-        Sacco_User customer=new Sacco_User();
-        customer.setFirstName(customerModel.getFirstName());
-        customer.setSecondName(customer.getSecondName());
-        customer.setLastName(customerModel.getLastName());
+    public Sacco_User saveCustomer(@RequestBody Sacco_user_Model userModel){
+        Sacco_User user=new Sacco_User();
+        user.setFirstName(userModel.getFirstName());
+        user.setSecondName(user.getSecondName());
+        user.setLastName(userModel.getLastName());
 //        customer.setRoles(customerModel.getRoles());
-        customer.setPassword( passwordEncoder.encode(customerModel.getPassword()));
-        return customerRepository.save(customer);
+        user.setPassword( passwordEncoder.encode(userModel.getPassword()));
+        return customerRepository.save(user);
     }
 
     @PostMapping("/login")
     public ResponseEntity<HttpStatus>login(@RequestBody Sacco_user_Model customerModel) throws Exception {
         Authentication authentication;
         try {
-           authentication= authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(customerModel.getLastName(),customerModel.getPassword()));
+           authentication= authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(customerModel.getEmail(),customerModel.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }catch (BadCredentialsException e){
             throw new Exception("bad credentials");
         }
         return  new ResponseEntity<>(HttpStatus.OK);
-    }
-    @GetMapping("/getAllCustomer")
-    public List<Sacco_User>  getAllCustomer(){
-        return customerRepository.findAll();
     }
 
     @GetMapping("/dashboard")
