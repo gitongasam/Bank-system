@@ -20,9 +20,5 @@ public class Sacco_User {
     private String lastName;
     private String email;
     private String password;
-    @OneToOne
-    private Sacco_Account sacco_accounts;
-
-
 
 }
