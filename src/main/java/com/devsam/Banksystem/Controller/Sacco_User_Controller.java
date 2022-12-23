@@ -33,7 +33,7 @@ public class Sacco_User_Controller {
         user.setFirstName(userModel.getFirstName());
         user.setSecondName(user.getSecondName());
         user.setLastName(userModel.getLastName());
-//        customer.setRoles(customerModel.getRoles());
+        user.setEmail(userModel.getEmail());
         user.setPassword( passwordEncoder.encode(userModel.getPassword()));
         return customerRepository.save(user);
     }
